@@ -1,10 +1,19 @@
-import DashboardCards from './components/DashboardCards';
-
 export default function Home() {
+  async function createUser() {
+    await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "Priyanka",
+        email: "priyanka@gmail.com",
+      }),
+    });
+  }
+
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-6">Dashboard Overview</h1>
-      <DashboardCards />
-    </>
+    <main style={{ padding: 40 }}>
+      <h1>Next.js MongoDB Test</h1>
+      <button onClick={createUser}>Create User</button>
+    </main>
   );
 }
