@@ -6,3 +6,4 @@ export async function GET(req) {
     headers: { 'Content-Type': 'application/json' },
   });
 }
+
