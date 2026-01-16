@@ -6,16 +6,14 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 export default function SignupPage() {
-  const router = useRouter();
-
   const [user, setUser] = React.useState({
     email: "",
     password: "",
-    userName: ""
+    userName: "",
   });
 
   const onSignup = async () => {
-    // signup logic later
+    // signup logic
   };
 
   return (
@@ -23,7 +21,7 @@ export default function SignupPage() {
       <h2>Sign Up</h2>
       <hr />
 
-      <label htmlFor="username">username</label>
+      <label htmlFor="username">Username</label>
       <input
         className="border border-gray-300"
         id="username"
@@ -32,22 +30,20 @@ export default function SignupPage() {
         onChange={(e) =>
           setUser({ ...user, userName: e.target.value })
         }
-        placeholder="User Name"
       />
 
-      <label htmlFor="email">email</label>
+      <label htmlFor="email">Email</label>
       <input
         className="border border-gray-300"
         id="email"
-        type="text"
+        type="email"
         value={user.email}
         onChange={(e) =>
           setUser({ ...user, email: e.target.value })
         }
-        placeholder="Email"
       />
 
-      <label htmlFor="password">password</label>
+      <label htmlFor="password">Password</label>
       <input
         className="border border-gray-300"
         id="password"
@@ -56,17 +52,11 @@ export default function SignupPage() {
         onChange={(e) =>
           setUser({ ...user, password: e.target.value })
         }
-        placeholder="Password"
       />
 
-      <button
-        onClick={onSignup}
-        className="p-2 mt-3 border border-gray-900 rounded-lg mb-4"
-      >
+      <button className="p-2 mt-3 border border-gray-900 rounded-lg mb-4">
         Submit
       </button>
-
-      <Link href="/login">Already have an account?</Link>
     </div>
   );
 }
