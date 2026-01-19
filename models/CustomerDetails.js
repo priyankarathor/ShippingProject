@@ -1,4 +1,3 @@
-// models/customerDetails.js
 import mongoose from "mongoose";
 
 const CustomerDetailSchema = new mongoose.Schema(
