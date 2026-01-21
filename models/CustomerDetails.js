@@ -17,7 +17,8 @@ const CustomerDetailSchema = new mongoose.Schema(
     customerPincode: String,
     customerCurrency: String,
     companyName: String,
-    gstin: String
+    gstin: String,
+    shippingPurpose:String
   },
   { timestamps: true }
 );

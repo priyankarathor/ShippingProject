@@ -16,10 +16,10 @@ export async function POST(req) {
     await connectDB();
 
     const body = await req.json();
-    const { name, email, companyName, phone } = body;
+    const { name, email, phoneNumber, companyName, pincode } = body;
 
     // Basic validation
-    if (!name || !email || !companyName) {
+    if (!name || !email || !phoneNumber) {
       return new NextResponse(
         JSON.stringify({ error: "All required fields missing" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
@@ -37,10 +37,7 @@ export async function POST(req) {
 
     // Create user
     const user = await User.create({
-      name,
-      email,
-      companyName,
-      phone,
+      name, email, phoneNumber, companyName, pincode
     });
 
     return new NextResponse(

@@ -13,12 +13,16 @@ const registerSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
+    phoneNumber:{
+      type:String,
+      required: true
+    },
     companyName: {
       type: String,
       required: true,
       minlength: 6,
     },
-    phone: {
+    pincode: {
       type: String,
     },
   },
