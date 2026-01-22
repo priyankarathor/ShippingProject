@@ -8,7 +8,7 @@ const CustomerDetailSchema = new mongoose.Schema(
     },
     customerEmail: String,
     customerMobile: String,
-    customerAlternatePhone: String,
+    customerAlternatePhone: String, 
     customerAddressLine1: String,
     customerAddressLine2: String,
     customerCountry: String,
