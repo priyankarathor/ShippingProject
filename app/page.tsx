@@ -1,5 +1,5 @@
 import GettingStarted from './components/GettingStarted';
-import {DashboardCards} from './components/DashboardCards';
+import DashboardCards from './components/DashboardCards';
 import UpcomingPickups from './components/UpcomingPickups';
 
 export default function DashboardPage() {
