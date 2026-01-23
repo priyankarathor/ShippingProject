@@ -7,7 +7,7 @@ export async function POST(req) {
   if (!MONGO_URL) {
     return new NextResponse(
       "Server misconfiguration: MONGO_URL not configured",
-      { status: 500 }
+      { status: 500 }// aall detaaills and the data inserted 
     );
   }
 
