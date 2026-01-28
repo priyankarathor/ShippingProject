@@ -1,54 +1,89 @@
 import connectDB from "../../../lib/mongodb";
 import User from "../../../models/Register";
-import { NextResponse } from "next/server";
 
+/* ================= CORS HANDLER ================= */
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
+/* ================= REGISTER API ================= */
 export async function POST(req) {
-  const MONGO_URL = process.env.MONGO_URL;
-  if (!MONGO_URL) {
-    return new NextResponse(
-      "Server misconfiguration: MONGO_URL not configured",
-      { status: 500 }// aall detaaills and the data inserted 
-    );
-  }
-
   try {
-    // Lazy DB connection
+    // Connect DB
     await connectDB();
 
     const body = await req.json();
     const { name, email, phoneNumber, companyName, pincode } = body;
 
-    // Basic validation
+    // Validation
     if (!name || !email || !phoneNumber) {
-      return new NextResponse(
-        JSON.stringify({ error: "All required fields missing" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+      return new Response(
+        JSON.stringify({ error: "All required fields are mandatory" }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
     }
 
-    // Check if user already exists
+    // Check existing user
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return new NextResponse(
+      return new Response(
         JSON.stringify({ error: "User already exists" }),
-        { status: 409, headers: { "Content-Type": "application/json" } }
+        {
+          status: 409,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
     }
 
-    // Create user
+    // Create new user
     const user = await User.create({
-      name, email, phoneNumber, companyName, pincode
+      name,
+      email,
+      phoneNumber,
+      companyName,
+      pincode,
     });
 
-    return new NextResponse(
-      JSON.stringify({ message: "User registered successfully", user }),
-      { status: 201, headers: { "Content-Type": "application/json" } }
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "User registered successfully",
+        user,
+      }),
+      {
+        status: 201,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     );
-
   } catch (error) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({ error: error.message }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     );
   }
 }
